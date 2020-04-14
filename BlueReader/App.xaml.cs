@@ -10,6 +10,7 @@ using System.Net.Http;
 using System.Web;
 using System.Threading;
 using System.Diagnostics;
+using System.IO;
 
 namespace BlueReader
 {
@@ -21,7 +22,7 @@ namespace BlueReader
         private void Application_Startup(object sender, StartupEventArgs e)
         {
             // if app is runnnig but user adds new book
-            
+
 
             //var inu = "bluereader://https://bayanbox.ir/download/1304514819017851126/A-Confederate-General-From-Big-Sur-Richard-Brautigan.epub|http://bayanbox.ir/view/7398172316998520139/a-confederate-general-richrad-brautigan.jpg|Richard Brautiagn a condeferate genrakl from big sur";
             if (e.Args.Length > 0)
@@ -31,17 +32,23 @@ namespace BlueReader
                 //var call = WebUtility.UrlDecode(inu);
                 var data = call.ToLower().Replace("bluereader://", "").Split(new[] { '|' });
                 if (data.Length < 2 || data[0] == null || data[1] == null || data[2] == null)
-                {                
+                {
                     System.Windows.MessageBox.Show("Error | Link is broken");
                     return;
                 }
-                //System.Windows.MessageBox.Show(data[1]);
+
+                if (!IsValidLink(data[0]) || !IsValidLink(data[1]))
+                {
+                    System.Windows.MessageBox.Show("Error | Link is invalid");
+                    return;
+                }
+
                 var pg = new ProgressWindow();
                 pg.Show();
                 Thread th = new Thread(new ThreadStart(() =>
                 {
                 }));
-                    th.Start();
+                th.Start();
                 var task = Task.Factory.StartNew(() =>
                 {
                     try
@@ -58,7 +65,7 @@ namespace BlueReader
                             DocPath = docPath
                         });
 
-                        
+
 
                         Dispatcher.Invoke(() =>
                         {
@@ -94,6 +101,22 @@ namespace BlueReader
                 var mw = new MainWindow();
                 mw.ShowDialog();
             }
+        }
+
+        private bool IsValidLink(string url)
+        {
+            var ext = Path.GetExtension(url);
+            var words = new string[] { "exe", "bat", "cmd", "bash", "msi", "app", "js", "cgi", "com", "vb" };
+
+            if (words.Any(x => ext.Contains(x)))
+                return false;
+
+            var trusted = new string[] { "bayanbox.ir", "bluepaper.ir" };
+            var urii = new Uri(url);
+            if (!words.Any(x => urii.Host.Contains(x)))
+                return false;
+
+            return true;
         }
     }
 }
