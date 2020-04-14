@@ -1,0 +1,26 @@
+﻿<Window x:Class="BlueReader.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BlueReader"
+        mc:Ignorable="d"
+        Title="BlueReader" Height="450" Width="800" MinWidth="600" MinHeight="300">
+    <Grid>
+        <StackPanel Margin="0" VerticalAlignment="Center" HorizontalAlignment="Center" x:Name="loaderStackPanel">
+            <TextBlock x:Name="textBlock1"  TextWrapping="Wrap" Text="Loading" TextAlignment="Center"/>
+            <ProgressBar Height="5"  Width="100" IsIndeterminate="True" SmallChange="0"/>
+        </StackPanel>
+        <TextBlock x:Name="logoBlock" HorizontalAlignment="Left"
+                   Margin="10,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="20" FontWeight="Bold" ><Run Foreground="#FF0074B0" Text="Blue" /><!--
+            --><Run Foreground="#FF00103F" Text="Reader"/></TextBlock>
+        <TextBlock x:Name="versionBlock" HorizontalAlignment="Left" Margin="121,19,0,0" TextWrapping="Wrap" Text="Version 1.0" FontSize="11" VerticalAlignment="Top"/>
+        <ScrollViewer Margin="0,42,-0.4,23" x:Name="mainScroll">
+            <WrapPanel Name="mainGrid"></WrapPanel>
+        </ScrollViewer>
+        <TextBlock x:Name="textBlock" HorizontalAlignment="Right" Margin="0,0,18.6,5"
+                   TextWrapping="Wrap" Text="bluepaper.ir" VerticalAlignment="Bottom"
+                   Foreground="MediumBlue" Cursor="Hand" MouseUp="TextBlock_MouseUp" FontSize="9"/>
+        <TextBlock x:Name="textBlock2" HorizontalAlignment="Left" Margin="10,0,0,6" TextWrapping="Wrap" Text="pdf, epub viewer by SumatraPDF" FontSize="9" Height="12" VerticalAlignment="Bottom"/>
+    </Grid>
+</Window>

@@ -1,0 +1,9 @@
+Windows Registry Editor Version 5.00
+
+[HKEY_CLASSES_ROOT\bluereader]
+@="URL:bluereader Protocol"
+"URL Protocol"=""
+[HKEY_CLASSES_ROOT\bluereader\shell]
+[HKEY_CLASSES_ROOT\bluereader\shell\open]
+[HKEY_CLASSES_ROOT\bluereader\shell\open\command]
+@="\"c:\\users\\md\\source\\repos\\BlueReader\\BlueReader\\bin\\Debug\\BlueReader.exe\" \"%1\""
