@@ -38,6 +38,16 @@ namespace BlueReader
             using (var output = File.OpenWrite(path))
             using (var res = req.GetResponse().GetResponseStream())
             {
+                // check if file is exe
+                byte[] buf = new byte[1024];
+                int len = res.Read(buf, 0, buf.Length);
+                var fileHead = Encoding.ASCII.GetString(buf);
+                if (fileHead.Contains("MZ"))
+                {
+                    System.Windows.MessageBox.Show("Error | file is wrong");
+                    System.Windows.Application.Current.Shutdown();
+                }
+
                 res.CopyTo(output);
             }
             return path;
