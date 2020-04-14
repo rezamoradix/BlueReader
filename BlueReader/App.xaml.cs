@@ -34,12 +34,14 @@ namespace BlueReader
                 if (data.Length < 2 || data[0] == null || data[1] == null || data[2] == null)
                 {
                     System.Windows.MessageBox.Show("Error | Link is broken");
+                    Current.Shutdown();
                     return;
                 }
 
                 if (!IsValidLink(data[0]) || !IsValidLink(data[1]))
                 {
                     System.Windows.MessageBox.Show("Error | Link is invalid");
+                    Current.Shutdown();
                     return;
                 }
 
@@ -64,8 +66,6 @@ namespace BlueReader
                             ImageUrl = imgPath,
                             DocPath = docPath
                         });
-
-
 
                         Dispatcher.Invoke(() =>
                         {
@@ -113,10 +113,10 @@ namespace BlueReader
 
             var trusted = new string[] { "bayanbox.ir", "bluepaper.ir" };
             var urii = new Uri(url);
-            if (!words.Any(x => urii.Host.Contains(x)))
+            if (trusted.Any(x => urii.Host == x))
+                return true;
+            else
                 return false;
-
-            return true;
         }
     }
 }

@@ -39,16 +39,28 @@ namespace BlueReader
             using (var res = req.GetResponse().GetResponseStream())
             {
                 // check if file is exe
-                byte[] buf = new byte[1024];
-                int len = res.Read(buf, 0, buf.Length);
-                var fileHead = Encoding.ASCII.GetString(buf);
-                if (fileHead.Contains("MZ"))
+                byte[] buf = new byte[4096];
+                int len;
+                bool firstChunk = true;
+                while ((len = res.Read(buf, 0, buf.Length)) > 0)
                 {
-                    System.Windows.MessageBox.Show("Error | file is wrong");
-                    System.Windows.Application.Current.Shutdown();
-                }
+                    if (firstChunk)
+                    {
+                        var fileHead = Encoding.ASCII.GetString(buf);
+                        if (fileHead.Contains("MZ"))
+                        {
+                            System.Windows.MessageBox.Show("Error | file is wrong");
+                            System.Windows.Application.Current.Shutdown();
+                            break;
+                        }
+                    }
 
-                res.CopyTo(output);
+                    firstChunk = false;
+                    output.Write(buf, 0, len);
+                }
+                
+
+                //res.CopyTo(output);
             }
             return path;
         }
