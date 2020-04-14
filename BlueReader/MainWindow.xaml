@@ -14,7 +14,7 @@
         <TextBlock x:Name="logoBlock" HorizontalAlignment="Left"
                    Margin="10,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="20" FontWeight="Bold" ><Run Foreground="#FF0074B0" Text="Blue" /><!--
             --><Run Foreground="#FF00103F" Text="Reader"/></TextBlock>
-        <TextBlock x:Name="versionBlock" HorizontalAlignment="Left" Margin="121,19,0,0" TextWrapping="Wrap" Text="Version 1.0" FontSize="11" VerticalAlignment="Top"/>
+        <TextBlock x:Name="versionBlock" HorizontalAlignment="Left" Margin="121,19,0,0" TextWrapping="Wrap" Text="Version 1.2" FontSize="11" VerticalAlignment="Top"/>
         <ScrollViewer Margin="0,42,-0.4,23" x:Name="mainScroll">
             <WrapPanel Name="mainGrid"></WrapPanel>
         </ScrollViewer>
